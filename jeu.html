@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jeu de cartes Empereur, Citoyen, Esclave">
+  <title>Club de cartes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <header>
+    <h1>Club de cartes</h1>
+
+    <nav>
+      <button>Profils</button>
+      <button>Jeu</button>
+      <button>Historique</button>
+    </nav>
+
+    <p id="corrent-player">Aucun joueur choisi</p>
+  </header>
+
+  <main>
+    <section id="page-game">
+        <p id="game-warning"></p>
+
+        <button id="start-btn">
+            Lancer une partie
+        </button>
+        <div id="game-board">
+            
+        </div>
+    </section>
+  </main>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
