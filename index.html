@@ -24,13 +24,16 @@
     <section id="profile-form">
       <div class="flex gap-8">
         <form  action="" id="profile-form" class="w-96 bg-slate-800 p-6 rounded-xl space-y-3 self-start">
-          <h2>Nouveau profil</h2>
-          <input id="profile-id" type="text">
-          <label for="">Pseudo</label>
-          <input id="nickname" type="text">
-          <label for="">Avatar</label>
-          <select name="" id="avatar"></select>
-          <p id="profile-error"></p>
+          <h2 class="text-xl font-bold mb-2">Nouveau profil</h2>
+
+          <input id="profile-id" type="hidden">
+          <label class="block text-sm text-slate-300" for="">Pseudo</label>
+
+          <input class="w-full h-11 px-3 rounded-lg bg-slate-700 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-400" id="nickname" type="text">
+          <label class="" for="">Avatar</label>
+
+          <select  class="w-full h-11 px-3 rounded-lg bg-slate-700 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-400" name="" id="avatar"></select>
+          <p class="text-red-400 text-sm" id="profile-error"></p>
 
           <div>
             <button id="profile-submit">Ajouter</button>
