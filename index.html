@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Jeu de cartes Empereur, Citoyen, Esclave">
-  <title>Club de crates</title>
+  <title>Club de cartes</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
   <header>
-    <h1>Club de crates</h1>
+    <h1>Club de cartes</h1>
 
     <nav>
       <button>Profils</button>
@@ -17,11 +17,28 @@
       <button>Historique</button>
     </nav>
 
-    <p>Aucun joueur choisi</p>
+    <p id="corrent-player">Aucun joueur choisi</p>
   </header>
 
   <main>
+    <section id="profile-form">
+      <div class="">
+        <form action="" id="profile-form">
+          <h2>Nouveau profil</h2>
+          <input id="profile-id" type="text">
+          <label for="">Pseudo</label>
+          <input id="nickname" type="text">
+          <label for="">Avatar</label>
+          <select name="" id="avatar"></select>
+          <p id="profile-error"></p>
 
+          <div>
+            <button id="profile-submit">Ajouter</button>
+            <button id="profile-cancel">Annuler</button>
+          </div>
+        </form>
+      </div>
+    </section>
   </main>
   <script type="module" src="./src/main.js"></script>
 </body>
