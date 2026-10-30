@@ -1,0 +1,8 @@
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Dépendances / builds si vous en ajoutez
+node_modules/
