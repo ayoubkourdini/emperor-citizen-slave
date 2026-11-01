@@ -1,2 +1,6 @@
-// Fonctions communes de lecture/écriture du LocalStorage.
-// Prévoir les profils, le joueur sélectionné et l'historique.
+export function savePlayers(players) {
+   const text = JSON.stringify(players);
+   localStorage.setItem("players", text);
+}
+
+function loadPlayers() {} 
