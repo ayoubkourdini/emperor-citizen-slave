@@ -3,4 +3,10 @@ export function savePlayers(players) {
    localStorage.setItem("players", text);
 }
 
-function loadPlayers() {} 
+export function loadPlayers() {
+    const text = localStorage.getItem("players");
+    if (text == null) {
+        return [];
+    }
+    return JSON.parse(text)
+} 
