@@ -7,19 +7,38 @@ displayPlayers(loadPlayers());
 
 const form = document.getElementById("profile-form");
 const name = document.getElementById("nickname");
-const error = document.getElementById("profile-error");
+const psuedoError = document.getElementById("profile-error");
+const ava = document.getElementById("avatar-list");
+const avatarError = document.getElementById("avatar-error");
+const buttons = document.querySelectorAll(".avatar");
+
+buttons.forEach((svg, index) => {
+    svg.addEventListener("click", () => {
+        console.log(index);
+    })
+});
+
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
     const nickname = name.value.trim()
     if (nickname === "") {
-        error.textContent = "pseudo est obligatoire"
+        psuedoError.textContent = "pseudo est obligatoire"
         return 
     }
-    addPlayer(nickname)
+    const avatar= ava.value;
+    if (avatar === "") {
+        avatarError.textContent = "Veuillez sélectionner un avatar."
+        return
+    }
+    addPlayer(nickname, avatar)
     displayPlayers(loadPlayers());
     name.value = "";
-    error.textContent = "";
+    ava.value = "";
+    psuedoError.textContent = "";
+    avatarError.textContent = "";
 
-})
+
+    });
+
 
