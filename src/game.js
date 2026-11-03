@@ -14,12 +14,21 @@ export function duel (a, b) {
     return "défaite"
 }
 
-console.log(duel("empereur", "empereur"))
-console.log(duel("empereur", "citoyen"))
-console.log(duel("empereur", "esclave"))
-console.log(duel("citoyen", "citoyen"))
-console.log(duel("citoyen", "esclave"))
-console.log(duel("citoyen", "empereur"))
-console.log(duel("esclave", "esclave"))
-console.log(duel("esclave", "empereur"))
-console.log(duel("esclave", "citoyen"))
+const campEmpereur = ["empereur", "citoyen", "citoyen", "citoyen", "citoyen"];
+const campEsclave = ["esclave", "citoyen", "citoyen", "citoyen", "citoyen"];
+let campPlayer = "empereur";
+let playerHand = [];
+let computerHand = [];
+
+
+function dealHands () {
+    if (campPlayer  === "empereur") {
+        playerHand = [...campEmpereur];
+        computerHand = [...campEsclave];
+    }else {
+        playerHand = [...campEsclave];
+        computerHand = [...campEmpereur];
+    }
+}
+dealHands()
+
