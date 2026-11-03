@@ -11,10 +11,12 @@ const psuedoError = document.getElementById("profile-error");
 const ava = document.getElementById("avatar-list");
 const avatarError = document.getElementById("avatar-error");
 const buttons = document.querySelectorAll(".avatar");
+let selectedAvatar = "";
 
 buttons.forEach((svg, index) => {
     svg.addEventListener("click", () => {
-        console.log(index);
+        selectedAvatar = index;
+        console.log(selectedAvatar)
     })
 });
 
@@ -22,19 +24,18 @@ buttons.forEach((svg, index) => {
 form.addEventListener("submit", (event) => {
     event.preventDefault();
     const nickname = name.value.trim()
-    if (nickname === "") {
+    if (nickname === ""){
         psuedoError.textContent = "pseudo est obligatoire"
         return 
     }
-    const avatar= ava.value;
-    if (avatar === "") {
+    if (selectedAvatar === "") {
         avatarError.textContent = "Veuillez sélectionner un avatar."
         return
     }
-    addPlayer(nickname, avatar)
+    addPlayer(nickname, selectedAvatar)
     displayPlayers(loadPlayers());
     name.value = "";
-    ava.value = "";
+    selectedAvatar = "";
     psuedoError.textContent = "";
     avatarError.textContent = "";
 

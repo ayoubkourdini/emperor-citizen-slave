@@ -1,8 +1,7 @@
 import { loadPlayers, savePlayers } from "./storage.js";
 
-export function addPlayer (nickname) {
+export function addPlayer (nickname, avatar) {
     const players = loadPlayers()
-    players.push({id: Date.now(), nickname: nickname, createdAt: new Date().toISOString()})
+    players.push({id: Date.now(), nickname: nickname, createdAt: new Date().toISOString(), avatar})
     savePlayers(players)
-
 }
