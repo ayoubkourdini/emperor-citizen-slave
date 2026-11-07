@@ -11,18 +11,18 @@
 
 <body class="bg-slate-900 text-slate-100 min-h-screen pb-20 md:pb-0">
     <header
-        class="bg-slate-800 border-b border-slate-700 px-4 h-14 flex items-center justify-between md:px-8 md:justify-start md:gap-8 md:px-8 md:py-0 md:h-16">
+        class="bg-slate-800 border-b border-slate-700 px-4 h-14 flex items-center justify-between md:px-8 md:justify-start md:gap-8  md:py-0 md:h-16">
         <h1 class="text-lg font-bold text-amber-400 md:text-xl">Club de cartes</h1>
 
-        <nav
-            class="fixed bottom-0 inset-x-0 z-10 flex bg-slate-800 border-t border-slate-700 md:static md:border-t-0 md:flex-1">
-            <button
-                class="flex-1 h-14 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-400 md:flex-none md:h-16 md:px-4">Profils</button>
-            <button
-                class="flex-1 h-14 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-400 md:flex-none md:h-16 md:px-4">Jeu</button>
-            <button
-                class="flex-1 h-14 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-400 md:flex-none md:h-16 md:px-4">Historique</button>
-        </nav>
+    <nav
+      class="fixed  bottom-0 inset-x-0 z-10 flex bg-slate-800 border-t border-slate-700 md:static md:border-t-0 md:flex-1 gap-8">
+      <a href="./index.html"
+        class="flex-1 flex justify-center items-center h-14 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-400 md:flex-none md:h-16 md:px-4">Profils</a>
+      <a href="./jeu.html"
+        class="flex-1 flex justify-center items-center h-14 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-400 md:flex-none md:h-16 md:px-4">Jeu</a>
+      <a href="./historique.html"
+        class="flex-1 flex justify-center items-center h-14 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-400 md:flex-none md:h-16 md:px-4">Historique</a>
+    </nav>
 
         <p id="current-player" class="text-xs bg-slate-700 px-3 py-1 rounded-full md:text-sm md:px-4 md:py-2">Aucun
             joueur choisi</p>
@@ -38,11 +38,18 @@
             </button>
             <div id="game-board" class="hidden mt-4 md:mt-6">
                 <div class="space-y-4 md:flex md:gap-8 md:space-y-0">
-                    <div id="game-info" class="bg-slate-800 p-3 rounded-xl text-sm space-y-1 md:w-72 md:p-6 md:self-start"></div>
+                    <div id="game-info" class="bg-slate-800 p-3 rounded-xl text-sm space-y-1 grid grid-cols-2 md:w-72 md:p-6 md:self-start">
+                        <p id="manche"></p>
+                        <p id="group"></p>
+                        <p id="camp-player"></p>
+                        <p id="first-player"></p>
+                        <p id="player-score"></p>
+                        <p id="computer-score"></p>
+                    </div>
                     <div class="space-y-4 md:flex-1 md:space-y-5">
                         <div class="bg-emerald-900 rounded-xl p-4 space-y-4 md:p-6">
                             <div id="computer-hand" class="flex gap-2 justify-center "></div>
-                            <div class="flex gqp64 justify-center md:gap-6">
+                            <div class="flex gap-4 justify-center p-10 md:gap-6">
                                 <div id="computer-card" class="w-24 h-32 flex items-center justify-center text-center rounded-lg bg-emerald-800 border border-emerald-600 md:w-28 md:h-40"></div>
                                 <div id="player-card"  class="w-24 h-32 flex items-center justify-center text-center rounded-lg bg-emerald-800 border border-emerald-600 md:w-28 md:h-40"></div>
                             </div>
@@ -59,7 +66,7 @@
             </div>
         </section>
     </main>
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/game.js"></script>
 </body>
 
 </html>

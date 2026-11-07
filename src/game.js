@@ -1,21 +1,26 @@
-import { displayHands } from "./ui.js"
+import { displayHands, displayDuel } from "./ui.js"
 
-export function duel (player1Card, player2Card) {
-    if (player1Card === player2Card) {
+export function duel (playerCard, computerCard) {
+    if (playerCard === computerCard) {
         return "égalité"
     }
-    if (player1Card === "esclave" && player2Card === "empereur") {
+    if (playerCard === "esclave" && computerCard === "empereur") {
         return "victoire"
     }
-    if (player1Card === "citoyen" && player2Card === "esclave") {
+    if (playerCard === "citoyen" && computerCard === "esclave") {
         return "victoire"
     }
-    if (player1Card === "empereur" && player2Card === "citoyen") {
+    if (playerCard === "empereur" && computerCard === "citoyen") {
         return "victoire"
     }
     return "défaite"
 }
-
+const gameManche = document.getElementById("manche");
+const gameGroup = document.getElementById("group");
+const camp = document.getElementById("camp-player");
+const firstPlayer = document.getElementById("first-player");
+const pScore = document.getElementById("player-score");
+const cScore = document.getElementById("computer-score");
 const campEmpereur = ["empereur", "citoyen", "citoyen", "citoyen", "citoyen"];
 const campEsclave = ["esclave", "citoyen", "citoyen", "citoyen", "citoyen"];
 let campPlayer = "empereur";
@@ -36,9 +41,17 @@ function dealHands () {
 
 const plHand = document.getElementById("player-hand");
 const cpHand = document.getElementById("computer-hand");
+let isLocked = false;
+let playerScore = 0;
+let computerScore = 0;
+let manche = 1;
+let group = 1;
 
 plHand.addEventListener("click", (event) => {
     if (event.target.dataset.index === undefined) {
+        return
+    }
+    if (isLocked === true) {
         return
     }
     const playerIndex = Number(event.target.dataset.index);
@@ -47,9 +60,66 @@ plHand.addEventListener("click", (event) => {
     const computerCard = computerHand[computerIndex];
     const result = duel(playerCard, computerCard);
 
-    console.log(playerCard);
-    console.log(computerCard);
-    console.log(result);
+    displayDuel(playerCard, computerCard, result);
+    isLocked = true;
+    setTimeout (() => {
+        if (result === "victoire" && campPlayer === "empereur") {
+            playerScore += 1;
+        } else if (result === "défaite" && campPlayer === "empereur") {
+            computerScore += 5
+        } else if (result === "victoire" && campPlayer === "esclave") {
+            playerScore += 5;
+        } else if (result === "défaite" && campPlayer === "esclave") {
+            computerScore += 1
+        }
+
+        
+
+        if (result !== "égalité") {
+            if (manche === 3 || manche === 6 || manche === 9) {
+             if (campPlayer === "empereur") {
+                campPlayer = "esclave";
+            } else {
+                campPlayer = "empereur";
+            }
+            }
+
+            manche += 1;
+            dealHands();
+            displayHands(playerHand, computerHand);
+        }
+
+        const newPlayerHand = [...playerHand];
+        const newComputerHand = [...computerHand];
+
+        if (result === "égalité") {
+            newPlayerHand.splice(playerIndex, 1);
+            newComputerHand.splice(computerIndex, 1);
+
+            playerHand = newPlayerHand;
+            computerHand = newComputerHand;
+            displayHands(playerHand, computerHand) 
+        }
+
+        if (manche > 3 && manche <= 6) {
+            group = 2;
+        } else if (manche > 6 && manche <= 9) {
+            group = 3;
+        } else if (manche > 9 && manche <= 12) {
+            group = 4;
+        } else if (manche > 12) {
+            
+        }
+        updateStatus()
+        displayDuel("", "", "");
+        
+        if (manche <= 12) {
+            isLocked = false;
+        }
+
+    }, 2000)
+
+
 })
 
 const button = document.getElementById("start-btn");
@@ -61,4 +131,12 @@ button.addEventListener("click", () => {
     displayHands(playerHand, computerHand);
 })
 
+function updateStatus () {
+    gameManche.textContent ="Manche: " + Math.min(manche,12) + "/12";
+    gameGroup.textContent ="groupe: " + group + "/4";
+    camp.textContent = "Ton camp: " + campPlayer;
+    firstPlayer.textContent = " ";
+    pScore.textContent = "Toi: " + playerScore;
+    cScore.textContent = "Ordinateur: " +  computerScore;
+}
 
