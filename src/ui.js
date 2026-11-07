@@ -25,7 +25,15 @@ export function displayPlayers (players) {
         const div = document.createElement("div");
         div.className = "w-16 h-24 rounded-lg bg-emerald-800 border border-emerald-600"
         computerBox.appendChild(div);
-    });
-
-     
+    });     
  } 
+
+export function displayDuel (playerCard, computerCard, result) {
+    const plCard = document.getElementById("player-card");
+    const cmplCard = document.getElementById("computer-card");
+    const resultat = document.getElementById("game-message");
+
+    plCard.textContent = playerCard;
+    cmplCard.textContent = computerCard;
+    resultat.textContent = result;
+}

@@ -15,6 +15,13 @@ export function duel (playerCard, computerCard) {
     }
     return "défaite"
 }
+const button = document.getElementById("start-btn");
+const gameInfo = document.getElementById("game-info"); 
+const board = document.getElementById("game-board");
+const gameEnd = document.getElementById("game-end");
+const playGround = document.getElementById("play-ground");
+const gameEndText = document.getElementById("game-end-text");
+const replayBtn = document.getElementById("replay-btn");
 const gameManche = document.getElementById("manche");
 const gameGroup = document.getElementById("group");
 const camp = document.getElementById("camp-player");
@@ -23,6 +30,13 @@ const pScore = document.getElementById("player-score");
 const cScore = document.getElementById("computer-score");
 const campEmpereur = ["empereur", "citoyen", "citoyen", "citoyen", "citoyen"];
 const campEsclave = ["esclave", "citoyen", "citoyen", "citoyen", "citoyen"];
+const plHand = document.getElementById("player-hand");
+const cpHand = document.getElementById("computer-hand");
+let isLocked = false;
+let playerScore = 0;
+let computerScore = 0;
+let manche = 1;
+let group = 1;
 let campPlayer = "empereur";
 let playerHand = [];
 let computerHand = [];
@@ -39,13 +53,7 @@ function dealHands () {
 }
  
 
-const plHand = document.getElementById("player-hand");
-const cpHand = document.getElementById("computer-hand");
-let isLocked = false;
-let playerScore = 0;
-let computerScore = 0;
-let manche = 1;
-let group = 1;
+
 
 plHand.addEventListener("click", (event) => {
     if (event.target.dataset.index === undefined) {
@@ -108,7 +116,7 @@ plHand.addEventListener("click", (event) => {
         } else if (manche > 9 && manche <= 12) {
             group = 4;
         } else if (manche > 12) {
-            
+            endGame();
         }
         updateStatus()
         displayDuel("", "", "");
@@ -122,8 +130,7 @@ plHand.addEventListener("click", (event) => {
 
 })
 
-const button = document.getElementById("start-btn");
-const board = document.getElementById("game-board");
+
 
 button.addEventListener("click", () => {
     dealHands();
@@ -139,4 +146,24 @@ function updateStatus () {
     pScore.textContent = "Toi: " + playerScore;
     cScore.textContent = "Ordinateur: " +  computerScore;
 }
+updateStatus()
 
+function endGame () {
+    if (playerScore > computerScore) {
+        gameEndText.textContent = "you win"
+    } else if (playerScore < computerScore) {
+        gameEndText.textContent = "you lose"
+    } else {
+        gameEndText.textContent = "égalité"
+    }
+    gameEnd.classList.remove("hidden");
+    playGround.classList.add ("hidden");
+    plHand.classList.add("hidden");
+    button.classList.add("hidden");
+    gameInfo.classList.add("hidden");
+    
+
+    replayBtn.addEventListener("click", (event) => {
+
+    })
+};
