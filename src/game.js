@@ -1,4 +1,5 @@
 import { displayHands, displayDuel } from "./ui.js"
+import { saveHistory } from "./storage.js"
 
 export function duel (playerCard, computerCard) {
     if (playerCard === computerCard) {
@@ -149,9 +150,12 @@ function updateStatus () {
 updateStatus()
 
 function endGame () {
+    let result = "égalité";
     if (playerScore > computerScore) {
+        result = "victoire"
         gameEndText.textContent = "you win"
     } else if (playerScore < computerScore) {
+        result = "défaite"
         gameEndText.textContent = "you lose"
     } else {
         gameEndText.textContent = "égalité"
@@ -159,11 +163,35 @@ function endGame () {
     gameEnd.classList.remove("hidden");
     playGround.classList.add ("hidden");
     plHand.classList.add("hidden");
-    button.classList.add("hidden");
     gameInfo.classList.add("hidden");
+
+    const game = {
+        id: "g_" + Date.now(),
+        playerId: "p_test",
+        date: new Date().toISOString().slice(0, 16),
+        playerScore: playerScore,
+        computerScore: computerScore,
+        result: result
+    };
+    saveHistory(game);
     
-
-    replayBtn.addEventListener("click", (event) => {
-
-    })
 };
+
+replayBtn.addEventListener("click", (event) => {
+        
+    playerScore = 0;
+    computerScore = 0;
+    manche = 1;
+    group = 1;
+    campPlayer = "empereur"
+    dealHands();
+    updateStatus()
+    displayHands(playerHand, computerHand);
+    gameEnd.classList.add("hidden");
+    playGround.classList.remove("hidden");
+    plHand.classList.remove("hidden");
+    gameInfo.classList.remove("hidden");
+    isLocked = false;
+    displayDuel("", "", "");
+       
+});

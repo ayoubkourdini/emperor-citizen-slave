@@ -10,3 +10,9 @@ export function loadPlayers() {
     }
     return JSON.parse(text)
 } 
+
+export function saveHistory (game) {
+    const history = JSON.parse(localStorage.getItem("history")) || [];
+    history.push(game);
+    localStorage.setItem("history", JSON.stringify(history));
+}
