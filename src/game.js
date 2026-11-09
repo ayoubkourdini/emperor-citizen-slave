@@ -57,17 +57,25 @@ function dealHands () {
 
 
 plHand.addEventListener("click", (event) => {
-    if (event.target.dataset.index === undefined) {
+    const clickedButton = event.target.closest("button");
+    if (clickedButton === null) {
         return
     }
     if (isLocked === true) {
         return
     }
-    const playerIndex = Number(event.target.dataset.index);
+    const playerIndex = Number(clickedButton.dataset.index);
     const playerCard = playerHand[playerIndex];
     const computerIndex = Math.floor(Math.random() * computerHand.length);
     const computerCard = computerHand[computerIndex];
     const result = duel(playerCard, computerCard);
+
+    let message = result;
+    if (result === "victoire" && campPlayer === "empereur") {
+        message = "victoire +1pt"
+    } else if (result === "victoire" && campPlayer === "esclave") {
+        message = "victoire +5pts"
+    }
 
     displayDuel(playerCard, computerCard, result);
     isLocked = true;
@@ -137,6 +145,7 @@ button.addEventListener("click", () => {
     dealHands();
     board.classList.remove("hidden");
     displayHands(playerHand, computerHand);
+    button.classList.add("hidden");
 })
 
 function updateStatus () {
@@ -164,6 +173,7 @@ function endGame () {
     playGround.classList.add ("hidden");
     plHand.classList.add("hidden");
     gameInfo.classList.add("hidden");
+    button.classList.add("hidden");
 
     const game = {
         id: "g_" + Date.now(),

@@ -38,25 +38,35 @@
             </button>
             <div id="game-board" class="hidden mt-4 md:mt-6">
                 <div class="space-y-4 md:flex md:gap-8 md:space-y-0">
-                    <div id="game-info" class="bg-slate-800 p-3 rounded-xl text-sm space-y-1 grid grid-cols-2 md:w-72 md:p-6 md:self-start">
-                        <p id="manche"></p>
-                        <p id="group"></p>
-                        <p id="camp-player"></p>
-                        <p id="first-player"></p>
-                        <p id="player-score"></p>
-                        <p id="computer-score"></p>
+                    <div id="game-info" class="bg-slate-800 border border-slate-700 rounded-xl p-3 grid grid-cols-2 gap-2 text-sm shadow-lg md:w-72 md:p-6 md:self-start md:grid-cols-1">
+                        <p id="manche" class="bg-slate-900 rounded-lg px-3 py-2 text-center font-semibold text-amber-300"></p>
+                        <p id="group" class="bg-slate-900 rounded-lg px-3 py-2 text-center font-semibold text-amber-300"></p>
+                        <p id="camp-player" class="bg-slate-900 rounded-lg px-3 py-2 text-center capitalize"></p>
+                        <p id="first-player" class="bg-slate-900 rounded-lg px-3 py-2 text-center"></p>
+                        <p id="player-score" class="bg-emerald-900 rounded-lg px-3 py-2 text-center text-lg font-bold"></p>
+                        <p id="computer-score" class="bg-red-900/60 rounded-lg px-3 py-2 text-center text-lg font-bold"></p></p>
                     </div>
                     <div class="space-y-4 md:flex-1 md:space-y-5">
-                        <div id="play-ground" class="bg-emerald-900 rounded-xl p-4 space-y-4 md:p-6">
+                        <div id="play-ground" class="bg-emerald-900 border-4 border-amber-700 rounded-2xl p-4 space-y-3 shadow-xl md:p-6">
+                            <p class="text-center text-xs uppercase tracking-widest text-emerald-300">Ordinateur</p>
                             <div id="computer-hand" class="flex gap-2 justify-center "></div>
-                            <div class="flex gap-4 justify-center p-10 md:gap-6">
-                                <div id="computer-card" class="w-24 h-32 flex items-center justify-center text-center rounded-lg bg-emerald-800 border border-emerald-600 md:w-28 md:h-40"></div>
-                                <div id="player-card"  class="w-24 h-32 flex items-center justify-center text-center rounded-lg bg-emerald-800 border border-emerald-600 md:w-28 md:h-40"></div>
+                            <div class="flex gap-4 justify-center py-4 md:gap-6">
+                                <div class="space-y-1 text-center">
+                                    <p class="text-xs text-emerald-300">Ordinateur</p>
+                                    <div id="computer-card" class="w-24 h-32 flex items-center justify-center  rounded-lg border-2 border-dashed border-emerald-600 bg-emerald-950/40 md:w-28 md:h-40"></div>
+                                </div>
+                                <div class="space-y-1 text-center">
+                                    <p class="text-xs text-emerald-300">Toi</p>
+                                    <div id="player-card" class="w-24 h-32 flex items-center justify-center  rounded-lg border-2 border-dashed border-emerald-600 bg-emerald-950/40 md:w-28 md:h-40"></div>
+                                </div>    
                             </div>
-                            <p id="game-message" class="text-center text-amber-300 h-6"></p>
+
+                            <p id="game-message" class="text-center text-xl font-bold text-amber-300 h-8"></p>
+
+                            <p class="text-center text-xs uppercase tracking-widest text-emerald-300">Ta main</p>
+                            <div id="player-hand" class="flex flex-wrap gap-2 justify-center md:gap-3"></div>
                         </div>
 
-                        <div id="player-hand" class="flex flex-wrap gap-2 justify-center md:gap-3"></div>
                         <div id="game-end" class="hidden bg-slate-800 p-4 rounded-xl text-center space-y-3 md:p-6">
                             <p id="game-end-text" class="text-lg font-bold md:text-xl"></p>
                             <button id="replay-btn" class="h-11 px-8 rounded-lg bg-amber-500 text-slate-900 font-bold hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-300">Rejouer</button>
