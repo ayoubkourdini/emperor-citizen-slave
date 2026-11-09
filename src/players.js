@@ -10,3 +10,11 @@ export function addPlayer (nickname, avatar) {
     })
     savePlayers(players)
 }
+
+export function updatePlayer (id, nickname, avatar) {
+    const players = loadPlayers()
+    const player = players.find(p => p.id === id)
+    player.nickname = nickname
+    player.avatar = avatar
+    savePlayers(players)
+}

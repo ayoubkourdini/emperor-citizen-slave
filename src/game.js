@@ -125,7 +125,7 @@ plHand.addEventListener("click", (event) => {
             group = 3;
         } else if (manche > 9 && manche <= 12) {
             group = 4;
-        } else if (manche > 2) {
+        } else if (manche > 12) {
             endGame();
         }
         updateStatus()
@@ -144,7 +144,7 @@ plHand.addEventListener("click", (event) => {
 
 button.addEventListener("click", () => {
     if (loadCurrentPlayer() === null) {
-        gameWarning.textContent = "Choisis d'abord un joueuer dans la page Profils.";
+        gameWarning.textContent = "Choisis d'abord un joueur dans la page Profils.";
         return;
     }
     gameWarning.textContent = "";
@@ -158,7 +158,11 @@ function updateStatus () {
     gameManche.textContent ="Manche: " + Math.min(manche,12) + "/12";
     gameGroup.textContent ="groupe: " + group + "/4";
     camp.textContent = "Ton camp: " + campPlayer;
-    firstPlayer.textContent = " ";
+    if (campPlayer === "empereur") {
+        firstPlayer.textContent = "Premier : Toi";
+    } else {
+        firstPlayer.textContent = "Premier : Ordinateur"
+    }
     pScore.textContent = "Toi: " + playerScore;
     cScore.textContent = "Ordinateur: " +  computerScore;
 }

@@ -1,10 +1,10 @@
 import {displayPlayers, displayCurrentPlayer} from "./ui.js";
 import {loadPlayers, loadHistory, saveCurrentPlayer, loadCurrentPlayer } from "./storage.js";
-import { addPlayer } from "./players.js";
+import { addPlayer, updatePlayer } from "./players.js";
 
-displayPlayers(loadPlayers(), loadHistory());
-
-
+const profileId = document.getElementById("profile-id");
+const submitBtn = document.getElementById("profile-submit");
+const cancelBtn = document.getElementById("profile-cancel");
 const form = document.getElementById("profile-form");
 const name = document.getElementById("nickname");
 const psuedoError = document.getElementById("profile-error");
@@ -26,17 +26,18 @@ form.addEventListener("submit", (event) => {
     psuedoError.textContent = "";
     avatarError.textContent = "";
 
+    const id = profileId.value;
     const nickname = name.value.trim();
     const regex = /^[A-Za-z0-9]{3,15}$/;
 
     if (regex.test(nickname) === false){
-        psuedoError.textContent = "pseudo : 3 à 15 caractères, letters et chiffres seulement.";
+        psuedoError.textContent = "psuedo : 3 à 15 caractères, letters et chiffres seulement.";
         return 
     }
 
     const players = loadPlayers();
     const exists = players.some((player) => {
-        return player.nickname.toLowerCase() === nickname.toLowerCase();
+        return player.nickname.toLowerCase() === nickname.toLowerCase() && player.id !== id;
     })
 
     if (exists) {
@@ -48,11 +49,15 @@ form.addEventListener("submit", (event) => {
         avatarError.textContent = "Veuillez sélectionner un avatar."
         return
     }
-    addPlayer(nickname, selectedAvatar)
-    displayPlayers(loadPlayers(), loadHistory());
-    name.value = "";
-    selectedAvatar = "";
-    buttons.forEach((b) => b.classList.remove("ring-4", "ring-amber-400"));
+
+    if (id === "") {
+        addPlayer(nickname, selectedAvatar);
+    } else {
+        updatePlayer(id, nickname, selectedAvatar);
+    }
+
+    resetForm();
+    refresh();
 });
 
 function refresh () {
@@ -68,7 +73,31 @@ list.addEventListener("click", (event) => {
     if (clicked === null) {
         return
     }
-    saveCurrentPlayer(clicked.dataset.id);
-    refresh();  
+
+    if (clicked.dataset.action === "choose") {
+        saveCurrentPlayer(clicked.dataset.id);
+        refresh();
+    }
+
+    if (clicked.dataset.action === "edit") {
+        const player = loadPlayers().find(p => p.id === clicked.dataset.id);
+        resetForm();
+        profileId.value = player.id;
+        name.value = player.nickname;
+        selectedAvatar = player.avatar;
+        buttons[player.avatar].classList.add("ring-4", "ring-amber-400");
+        submitBtn.textContent = "Enregistrer";
+    }
 })
 
+function resetForm () {
+    name.value = "";
+    selectedAvatar = "";
+    profileId.value = "";
+    submitBtn.textContent = "Ajouter";
+    psuedoError.textContent = "";
+    avatarError.textContent = "";
+    buttons.forEach((b) => b.classList.remove("ring-4", "ring-amber-400"));
+}
+
+cancelBtn.addEventListener("click", resetForm);

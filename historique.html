@@ -26,7 +26,7 @@
 
   <main class="p-4 max-w-6xl mx-auto md:p-8">
     <section id="page-history">
-        <h2 class="text-lg fond-bold mb-3 md:text-xl">Historique</h2>
+        <h2 class="text-lg font-bold mb-3 md:text-xl">Historique</h2>
 
         <div class="bg-slate-800 p-4 rounded-xl flex flex-col gap-2 mb-4 md:flex-row md:gap-3 md:p-6 md:mb-6">
             <input type="text" id="search" placeholder="Chercher un pseudo" class="w-full h-11 px-3 rounded-lg bg-slate-700 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-400 md:flex-1">
@@ -36,16 +36,17 @@
                 <option value="défaite">Défaites</option>
                 <option value="égalité">Egalités</option>
             </select>            
-            <select name="" id="filter-period" class="w-full h-11 px-3 rounded-lg bg-slate-700 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-400 md:w-auto">
+            <select name="" id="filter-date" class="w-full h-11 px-3 rounded-lg bg-slate-700 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-400 md:w-auto">
                 <option value="all">Tout</option>
                 <option value="today">Aujourd'hui</option>
                 <option value="week">7 derniers jours</option>
             </select>
         </div>
-
+         
+        <p id="empty-message" class="hidden text-center text-slate-400 py-8">Aucune partie ne correspond.</p>
         <ul id="history-list" class="space-y-3 md:space-y-4"></ul>
     </section>
   </main>
-  <script type="module" src="./src/main.js"></script>
+  <script type="module" src="./src/history.js"></script>
 </body>
 </html>

@@ -29,11 +29,25 @@ export function displayPlayers (players, history, currentId) {
        li.appendChild(avatar);
        li.appendChild(info);
 
+       const buttons = document.createElement("div");
+       buttons.className = "ml-auto flex flex-col gap-2"
+
        const chooseBtn = document.createElement("button");
        chooseBtn.dataset.id = player.id;
-       chooseBtn.className = "ml-auto px-3 h-9 rounded-lg bg-amber-500 text-slate-900 font-bold hover:bg-amber-400";
+       chooseBtn.dataset.action = "choose";
+       chooseBtn.className = "px-3 h-9 rounded-lg bg-amber-500 text-slate-900 font-bold hover:bg-amber-400";
        chooseBtn.textContent = "choisir";
-       li.appendChild(chooseBtn);
+
+       const editBtn = document.createElement("button");
+       editBtn.dataset.id = player.id;
+       editBtn.dataset.action = "edit";
+       editBtn.className = "px-3 h-9 rounded-lg bg-slate-600 hover:bg-slate-500";
+       editBtn.textContent = "Modifier";
+
+       buttons.appendChild(chooseBtn);
+       buttons.appendChild(editBtn);
+       li.appendChild(buttons);
+
 
        if (player.id === currentId) {
         li.classList.add("border-2", "border-amber-400");
