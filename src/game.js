@@ -1,5 +1,5 @@
-import { displayHands, displayDuel } from "./ui.js"
-import { saveHistory } from "./storage.js"
+import { displayHands, displayDuel, displayCurrentPlayer } from "./ui.js"
+import { saveHistory, loadPlayers, loadCurrentPlayer } from "./storage.js"
 
 export function duel (playerCard, computerCard) {
     if (playerCard === computerCard) {
@@ -17,6 +17,7 @@ export function duel (playerCard, computerCard) {
     return "défaite"
 }
 const button = document.getElementById("start-btn");
+const gameWarning = document.getElementById("game-warning");
 const gameInfo = document.getElementById("game-info"); 
 const board = document.getElementById("game-board");
 const gameEnd = document.getElementById("game-end");
@@ -77,7 +78,7 @@ plHand.addEventListener("click", (event) => {
         message = "victoire +5pts"
     }
 
-    displayDuel(playerCard, computerCard, result);
+    displayDuel(playerCard, computerCard, message);
     isLocked = true;
     setTimeout (() => {
         if (result === "victoire" && campPlayer === "empereur") {
@@ -124,7 +125,7 @@ plHand.addEventListener("click", (event) => {
             group = 3;
         } else if (manche > 9 && manche <= 12) {
             group = 4;
-        } else if (manche > 12) {
+        } else if (manche > 2) {
             endGame();
         }
         updateStatus()
@@ -142,6 +143,11 @@ plHand.addEventListener("click", (event) => {
 
 
 button.addEventListener("click", () => {
+    if (loadCurrentPlayer() === null) {
+        gameWarning.textContent = "Choisis d'abord un joueuer dans la page Profils.";
+        return;
+    }
+    gameWarning.textContent = "";
     dealHands();
     board.classList.remove("hidden");
     displayHands(playerHand, computerHand);
@@ -157,6 +163,7 @@ function updateStatus () {
     cScore.textContent = "Ordinateur: " +  computerScore;
 }
 updateStatus()
+displayCurrentPlayer(loadPlayers(), loadCurrentPlayer());
 
 function endGame () {
     let result = "égalité";
@@ -177,7 +184,7 @@ function endGame () {
 
     const game = {
         id: "g_" + Date.now(),
-        playerId: "p_test",
+        playerId: loadCurrentPlayer(),
         date: new Date().toISOString().slice(0, 16),
         playerScore: playerScore,
         computerScore: computerScore,

@@ -1,13 +1,58 @@
-export function displayPlayers (players) {
+export function displayPlayers (players, history, currentId) {
     const list = document.getElementById("profile-list");
+    const title = document.getElementById("profile-list-title");
+    const avatars = document.querySelectorAll("#avatar-list .avatar")
+
     list.innerHTML = "";
+    title.textContent = "profils (" + players.length + ")";
+
     players.forEach(player => {
        const li = document.createElement("li");
-       li.textContent = player.nickname;
-       li.className = "bg-slate-800 p-4 rounded-xl text-center";
+       li.className = "bg-slate-800 p-4 rounded-xl flex items-center gap-4";
+
+       const avatar = avatars[player.avatar].cloneNode(true);
+       avatar.setAttribute("class", "w-14 h-14 rounded-full");
+
+       const info = document.createElement("div");
+
+       const name = document.createElement("p");
+       name.textContent = player.nickname;
+       name.className = "font-bold";
+
+       const played = history.filter(game => game.playerId === player.id).length;
+       const count = document.createElement("p");
+       count.textContent = played + " partie(s) jouée(s)";
+       count.className = "text-sm text-slate-400";
+
+       info.appendChild(name);
+       info.appendChild(count);
+       li.appendChild(avatar);
+       li.appendChild(info);
+
+       const chooseBtn = document.createElement("button");
+       chooseBtn.dataset.id = player.id;
+       chooseBtn.className = "ml-auto px-3 h-9 rounded-lg bg-amber-500 text-slate-900 font-bold hover:bg-amber-400";
+       chooseBtn.textContent = "choisir";
+       li.appendChild(chooseBtn);
+
+       if (player.id === currentId) {
+        li.classList.add("border-2", "border-amber-400");
+        chooseBtn.textContent = "choisi"
+       }
        list.appendChild(li);
     });
 }
+
+export function displayCurrentPlayer (players, currentId) {
+    const badge = document.getElementById("current-player");
+    const player = players.find(p => p.id === currentId);
+    if (player === undefined) {
+        badge.textContent = "Aucun joueur choisi";
+    } else {
+        badge.textContent = player.nickname;
+    }
+}
+
  export function displayHands (playerCards, computerCards) {
     const playerBox = document.getElementById("player-hand");
     playerBox.innerHTML = "";

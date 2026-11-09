@@ -5,6 +5,7 @@ export function addPlayer (nickname, avatar) {
     players.push({
         id: "p_" + Date.now(),
         nickname: nickname,
+        avatar: avatar,
         createdAt: new Date().toISOString().slice(0,10)
     })
     savePlayers(players)

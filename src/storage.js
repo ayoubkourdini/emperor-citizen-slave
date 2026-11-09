@@ -16,3 +16,19 @@ export function saveHistory (game) {
     history.push(game);
     localStorage.setItem("history", JSON.stringify(history));
 }
+
+export function loadHistory() {
+    const text = localStorage.getItem("history");
+    if (text == null) {
+        return [];
+    }
+    return JSON.parse(text)
+}
+
+export function saveCurrentPlayer (id) {
+    localStorage.setItem("currentPlayer", id);
+}
+
+export function loadCurrentPlayer() {
+    return localStorage.getItem("currentPlayer");
+}

@@ -1,14 +1,13 @@
-import {displayPlayers} from "./ui.js";
-import {loadPlayers } from "./storage.js";
+import {displayPlayers, displayCurrentPlayer} from "./ui.js";
+import {loadPlayers, loadHistory, saveCurrentPlayer, loadCurrentPlayer } from "./storage.js";
 import { addPlayer } from "./players.js";
 
-displayPlayers(loadPlayers());
+displayPlayers(loadPlayers(), loadHistory());
 
 
 const form = document.getElementById("profile-form");
 const name = document.getElementById("nickname");
 const psuedoError = document.getElementById("profile-error");
-const ava = document.getElementById("avatar-list");
 const avatarError = document.getElementById("avatar-error");
 const buttons = document.querySelectorAll(".avatar");
 let selectedAvatar = "";
@@ -50,10 +49,26 @@ form.addEventListener("submit", (event) => {
         return
     }
     addPlayer(nickname, selectedAvatar)
-    displayPlayers(loadPlayers());
+    displayPlayers(loadPlayers(), loadHistory());
     name.value = "";
     selectedAvatar = "";
     buttons.forEach((b) => b.classList.remove("ring-4", "ring-amber-400"));
-    });
+});
 
+function refresh () {
+    const players = loadPlayers();
+    displayPlayers(players, loadHistory(), loadCurrentPlayer());
+    displayCurrentPlayer(players, loadCurrentPlayer()); 
+}
+refresh();
+
+const list = document.getElementById("profile-list");
+list.addEventListener("click", (event) => {
+    const clicked = event.target.closest("button");
+    if (clicked === null) {
+        return
+    }
+    saveCurrentPlayer(clicked.dataset.id);
+    refresh();  
+})
 
