@@ -44,8 +44,15 @@ export function displayPlayers (players, history, currentId) {
        editBtn.className = "px-3 h-9 rounded-lg bg-slate-600 hover:bg-slate-500";
        editBtn.textContent = "Modifier";
 
+       const deleteBtn = document.createElement("button");
+       deleteBtn.dataset.id = player.id;
+       deleteBtn.dataset.action = "delete";
+       deleteBtn.className = "px-3 h-9 rounded-lg bg-red-700 hover:bg-red-600";
+       deleteBtn.textContent = "Supprimer";
+
        buttons.appendChild(chooseBtn);
        buttons.appendChild(editBtn);
+       buttons.appendChild(deleteBtn);
        li.appendChild(buttons);
 
 

@@ -1,6 +1,6 @@
 import {displayPlayers, displayCurrentPlayer} from "./ui.js";
 import {loadPlayers, loadHistory, saveCurrentPlayer, loadCurrentPlayer } from "./storage.js";
-import { addPlayer, updatePlayer } from "./players.js";
+import { addPlayer, updatePlayer, deletePlayer } from "./players.js";
 
 const profileId = document.getElementById("profile-id");
 const submitBtn = document.getElementById("profile-submit");
@@ -87,6 +87,15 @@ list.addEventListener("click", (event) => {
         selectedAvatar = player.avatar;
         buttons[player.avatar].classList.add("ring-4", "ring-amber-400");
         submitBtn.textContent = "Enregistrer";
+    }
+
+    if (clicked.dataset.action === "delete") {
+        if (confirm("Supprimer ce profil ? Ses parties resteront dans l'historique.") === false) {
+            return;
+        }
+        deletePlayer(clicked.dataset.id);
+        resetForm();
+        refresh();
     }
 })
 

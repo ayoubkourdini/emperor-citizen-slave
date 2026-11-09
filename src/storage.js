@@ -32,3 +32,7 @@ export function saveCurrentPlayer (id) {
 export function loadCurrentPlayer() {
     return localStorage.getItem("currentPlayer");
 }
+
+export function clearCurrentPlayer () {
+    localStorage.removeItem("currentPlayer");
+}
